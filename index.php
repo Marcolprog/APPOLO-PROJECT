@@ -1,3 +1,60 @@
+<?php
+
+$message_success = "Votre message a été envoyé avec succès.";
+$mail_sanitize_error = "Email invalide";
+
+   
+const REQUIRED_FIELD_ERROR = "Tous les trois champs sont requis SVP.";
+$errors = [];
+
+function sanitize_my_email($field) {
+$field = filter_var($field, FILTER_SANITIZE_EMAIL);
+if (filter_var($field, FILTER_VALIDATE_EMAIL)) {
+   return true;
+   } else {
+   return false;
+  }
+}
+
+if (isset($_POST['email'], $_POST['sujet'], $_POST['message']) && 
+('' !==$_POST['email'] && '' !==$_POST['sujet'] && '' !==$_POST['message']))
+{
+        $subject = $_POST['sujet'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+
+        $to = "organism_contact@email.com";
+        $headers = 'MIME-Version: 1.0';
+        $headers .= 'Content-type: text/html; charset=utf8; ';
+        $headers .= 'From: '.$email;
+
+    // En-têtes additionnels
+    // $headers .= ' Cc: anniversaire_archive@example.com';
+    // $headers .= ' Bcc: anniversaire_verif@example.com';
+
+    // filtrage/validation de $to, $subject, $message, $headers;
+if(sanitize_my_email($email)) {
+  mail($to, $subject, $message, $headers);
+    // echo $message_success ;
+} else {
+      echo $mail_sanitize_error ;
+}
+
+} 
+else{
+      // if (!$subject || !$email || !$message){
+        $errors['message'] = REQUIRED_FIELD_ERROR;
+      // }
+}
+ 
+function secure_post($message){
+ $_POST[$message] ?? false;
+ $post = $_POST[$message];
+ return htmlspecialchars(stripslashes(trim($post)));
+}
+
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,7 +77,7 @@
         <ul class="nav">
           <li><a href="#about">À propos</a></li>
           <li><a href="#full-slide">Travail</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact" >Contact</a></li>
         </ul>
       </header>
       <div class="wrapper">
@@ -52,9 +109,11 @@
 </svg>
       <ul class="banner">
         <li class="active"></li>
-        <li></li>
-        <li></li>
-      </ul><i class="icon-chevron-thin-left prev"></i><i class="icon-chevron-thin-right next"></i>
+        <li class="active"></li>
+        <li class="active"></li>
+      </ul>
+      <i class="icon-chevron-thin-left prev" onclick="sliding(-1)"></i>
+      <i class="icon-chevron-thin-right next" onclick="sliding(1)"></i>
     </section>
     <section id="featured"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 248.8" style="enable-background:new 0 0 100 248.8;" xml:space="preserve">
 <g transform="translate(0.000000,749.000000) scale(0.100000,-0.100000)">
@@ -91,12 +150,15 @@
         <div class="blurb">
           <h2><strong>Dites-moi</strong> Hello</h2>
           <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-        </div>
-        <form>
-          <input type="email" placeholder="Votre courriel">
-          <input type="text" placeholder="Sujet">
-          <textarea placeholder="Message"></textarea>
-          <input type="submit" value="Envoyer">
+        </div>  
+
+        <?php echo $errors['message'] ?? $message_success ?> 
+
+        <form action="" method="POST" enctype="multipart/form-data">
+          <input type="email" name="email" placeholder="Votre courriel">
+          <input type="text" name="sujet" placeholder="Sujet" >
+          <textarea name="message" placeholder="Message"></textarea>
+          <input type="submit" name="submit" value="Envoyer">
         </form>
       </div>
       <p class="copyright">&copy; Apollo Project</p>

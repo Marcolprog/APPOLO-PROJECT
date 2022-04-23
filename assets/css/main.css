@@ -6,6 +6,9 @@
     font-style: normal;
 }
 
+
+.active {display:none;}
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
     font-family: sans-serif;
@@ -13,7 +16,9 @@ html {
     -webkit-text-size-adjust: 100%;
     font-weight: normal;
     font-style: normal;
+    scroll-behavior: smooth;
 }
+
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
@@ -864,7 +869,7 @@ svg path {
     cursor: pointer;
     z-index: 10;
     -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out
+    transition: all .2s ease-in-out !important
 }
 
 #full-slide i:hover {
@@ -1047,7 +1052,7 @@ svg path {
     align-items: center
 }
 
-#three-slide .wrapper .slider {
+#three-slide .wrapper .slider{
     position: relative;
     width: calc(100% - 60px);
     height: 100%;
@@ -1055,14 +1060,14 @@ svg path {
     padding: 0;
     list-style: none;
     opacity: 1;
-    -webkit-transition: opacity .3s ease-in-out;
-    transition: opacity .3s ease-in-out
+    -webkit-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out
 }
 
 #three-slide .wrapper .slider.swap {
     opacity: 0;
-    -webkit-transition: opacity .3s ease-in-out;
-    transition: opacity .3s ease-in-out
+    -webkit-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out
 }
 
 #three-slide .wrapper .slider li {
@@ -1071,12 +1076,15 @@ svg path {
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     width: 40%;
-    opacity: 0
+    opacity: 0;
+    -webkit-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out
 }
 
 @media (max-width: 900px) {
     #three-slide .wrapper .slider li {
-        width:50%
+        width:50%;
+    
     }
 }
 
@@ -1086,7 +1094,8 @@ svg path {
 
 #three-slide .wrapper .slider .back {
     left: 0;
-    opacity: 1
+    opacity: 1;
+    
 }
 
 #three-slide .wrapper .slider .current {
@@ -1094,12 +1103,14 @@ svg path {
     -webkit-transform: translate(-50%, -50%) scale(1.3);
     transform: translate(-50%, -50%) scale(1.3);
     opacity: 1;
-    z-index: 10
+    z-index: 10;
+    
 }
 
 #three-slide .wrapper .slider .front {
     right: 0;
-    opacity: 1
+    opacity: 1;
+   
 }
 
 @media (max-width: 767px) {
@@ -2664,4 +2675,22 @@ svg path {
     margin-bottom: 0;
     font-family: "Raleway",Helvetica,sans-serif;
     font-size: 12px
+}
+
+
+#full-slide i {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%) scale(1);
+    transform: translateY(-50%) scale(1);
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #fff;
+    cursor: pointer;
+    z-index: 10;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out !important
 }
